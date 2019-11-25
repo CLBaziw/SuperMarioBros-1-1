@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Small_Player_Walking_Right
+  m_Name: Small_Player_Walking_Left
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,16 +20,16 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -3732045684544685907, guid: 187a5c73190c6a04893c05882b34ee44,
+      value: {fileID: -1238685863447000491, guid: 5aa09e6ac336f4a429b244fc23976fb5,
         type: 3}
     - time: 0.05
-      value: {fileID: 6991265327970168251, guid: 187a5c73190c6a04893c05882b34ee44,
+      value: {fileID: 460325997701947146, guid: 5aa09e6ac336f4a429b244fc23976fb5,
         type: 3}
     - time: 0.1
-      value: {fileID: 2761738562309040904, guid: 187a5c73190c6a04893c05882b34ee44,
+      value: {fileID: 672467754082976737, guid: 5aa09e6ac336f4a429b244fc23976fb5,
         type: 3}
     - time: 0.15
-      value: {fileID: 8609771650241553952, guid: 187a5c73190c6a04893c05882b34ee44,
+      value: {fileID: -111532725127841598, guid: 5aa09e6ac336f4a429b244fc23976fb5,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -50,10 +50,10 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -3732045684544685907, guid: 187a5c73190c6a04893c05882b34ee44, type: 3}
-    - {fileID: 6991265327970168251, guid: 187a5c73190c6a04893c05882b34ee44, type: 3}
-    - {fileID: 2761738562309040904, guid: 187a5c73190c6a04893c05882b34ee44, type: 3}
-    - {fileID: 8609771650241553952, guid: 187a5c73190c6a04893c05882b34ee44, type: 3}
+    - {fileID: -1238685863447000491, guid: 5aa09e6ac336f4a429b244fc23976fb5, type: 3}
+    - {fileID: 460325997701947146, guid: 5aa09e6ac336f4a429b244fc23976fb5, type: 3}
+    - {fileID: 672467754082976737, guid: 5aa09e6ac336f4a429b244fc23976fb5, type: 3}
+    - {fileID: -111532725127841598, guid: 5aa09e6ac336f4a429b244fc23976fb5, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
