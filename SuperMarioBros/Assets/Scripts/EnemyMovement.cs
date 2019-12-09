@@ -32,7 +32,7 @@ public class EnemyMovement : MonoBehaviour
         {
             moveSpeed *= -1;
         }
-        else
+        else if (collisionTag == "Player")
         {
             //Player dies
         }

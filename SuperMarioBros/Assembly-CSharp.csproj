@@ -63,13 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Boxes.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Coin.cs" />
-    <Compile Include="Assets\Scripts\CoinBox.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\Feet.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\Items\Boxes.cs" />
+    <Compile Include="Assets\Scripts\Items\BrickBreak.cs" />
+    <Compile Include="Assets\Scripts\Items\Coin.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/GitHub/Centennial/COMP391/SuperMarioBros/SuperMarioBros/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

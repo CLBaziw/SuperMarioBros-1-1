@@ -3960,9 +3960,10 @@ GameObject:
   m_Component:
   - component: {fileID: 347089310}
   - component: {fileID: 347089315}
-  - component: {fileID: 347089314}
   - component: {fileID: 347089313}
   - component: {fileID: 347089312}
+  - component: {fileID: 347089314}
+  - component: {fileID: 347089316}
   - component: {fileID: 347089311}
   m_Layer: 0
   m_Name: Brick
@@ -3997,7 +3998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faac10428422a9b4f8d2a75ec53c2f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 2129838747723220055, guid: 07eeeb696b9d4cd44a221f19dbd3f2fc, type: 3}
 --- !u!61 &347089312
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4042,25 +4043,27 @@ EdgeCollider2D:
   m_Points:
   - {x: -0.5122149, y: -0.50692}
   - {x: 0.50610733, y: -0.50081265}
---- !u!95 &347089314
-Animator:
-  serializedVersion: 3
+--- !u!50 &347089314
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 347089309}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!212 &347089315
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4111,6 +4114,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &347089316
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347089309}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7412b7583e1dfff4c83778645c04cb46, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &422656960
 GameObject:
   m_ObjectHideFlags: 0

@@ -368,6 +368,9 @@ TextureImporter:
   - first:
       213: -961783290434586346
     second: NES - Super Mario Bros - Item and Brick Blocks_266
+  - first:
+      213: -4730573424505813790
+    second: empty
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -2967,6 +2970,27 @@ TextureImporter:
       bones: []
       spriteID: 36a68c43483191443bca5ce0c5f975ce
       internalID: -961783290434586346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: empty
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 236
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76c43f24fb5ddbd4fb270983cb26fcbd
+      internalID: -4730573424505813790
       vertices: []
       indices: 
       edges: []
