@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Horiztontal Movement
-    public float moveSpeed = 5f;
-    public float horiz;
+    private float horiz;
+    const float moveSpeed = 7.5f;
+    private Transform transBoundary;
+    private Vector3 vecBoundary;
 
     //Jumping movement
-    private bool isJumping;
+    public bool isJumping;
+    const float jumpSpeed = 18f;
     
     //Controllers
     private Animator animator;
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        transBoundary = GameObject.Find("MinXMaxY").GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -36,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("Jump") > 0 && !isJumping)
         {
-            rBody.AddForce(Vector2.up * 10, ForceMode2D.Impulse); //Impulse = add force right away
+            rBody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse); //Impulse = add force right away
             isJumping = true;
 
             animator.SetLayerWeight(JUMP, 1);
@@ -57,26 +61,11 @@ public class PlayerController : MonoBehaviour
             animator.SetLayerWeight(JUMP, 0);
         }
 
+        rBody.velocity = new Vector2(horiz * moveSpeed, rBody.velocity.y);
 
+        vecBoundary = transBoundary.position;
 
-        /*
-            --------------------------------------------------
-            if player is jumping = Input.GetAxis("Jump") > 0 && isGrounded
-                make player jump
-                isGrounded = false
-                set layer JUMP
-            else
-                isGrounded = true
-
-            if player is moving = horiz != 0
-                set horizontal value
-                if isGrounded = true
-                    set layer WALK
-            else
-                set layer IDLE
-        */
-
-        rBody.velocity = new Vector2(horiz * 7.5f, rBody.velocity.y);
+        rBody.position = new Vector2(Mathf.Clamp(rBody.position.x, vecBoundary.x, float.MaxValue ), Mathf.Clamp(rBody.position.y, -3, vecBoundary.y));
     }
 
     private void OnCollisionEnter2D(Collision2D floor)
