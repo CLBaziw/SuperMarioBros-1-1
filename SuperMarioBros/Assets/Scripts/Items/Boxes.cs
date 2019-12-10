@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class Boxes : MonoBehaviour
 {
-    public GameObject prefab;
+    private GameObject prefab;
+    public GameObject coinPrefab;
+    public GameObject brickPrefab;
+    public GameObject mushroomPrefab;
+    public GameObject flowerPrefab;
+    public GameObject starPrefab;
+
     public Animator animator;
     public Collider2D bottomCollider;
 
-    private ScoreCounter tracker;
+    private PowerUpTracker trackerPU;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        tracker = FindObjectOfType<ScoreCounter> ();
+        trackerPU = FindObjectOfType<PowerUpTracker>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         IEnumerator coroutine = WaitToBreak();
 
-        if (collision.gameObject.CompareTag("Player") && CompareTag("Block"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             if (name == "MultiCoinBox")
             {
@@ -28,45 +34,82 @@ public class Boxes : MonoBehaviour
             }
             else
             {
-                if (tag == "Brick")
+                if (name.Contains("Brick"))
                 {
-                    //if (gController.isBig)
-                    //{
-                    InstantiateObj();
+                    if (trackerPU.isBig)
+                    {
+                        prefab = brickPrefab;
 
-                    Debug.Log("about to wait");
+                        InstantiateObj();
 
-                    StartCoroutine(coroutine);
+                        Debug.Log("about to wait");
 
-                    Destroy(gameObject);
-                    //}
-
+                        StartCoroutine(coroutine);
+                    }
                 }
                 else
                 {
+                    if (name.Contains("Coin"))
+                    {
+                        prefab = coinPrefab;
+                    }
+                    else if (name.Contains("Star"))
+                    {
+                        prefab = starPrefab;
+                    }
+                    else
+                    {
+                        CheckPowerUp();
+                    }
+
+                    Debug.Log(name);
                     InstantiateObj();
                 }
             }
         }
     }
 
+    void CheckPowerUp()
+    {
+        if (trackerPU.isBig)
+        {
+            prefab = flowerPrefab;
+        }
+        else
+        {
+            prefab = mushroomPrefab;
+        }
+    }
+
     void InstantiateObj()
     {
+        Vector3 spawnPos; 
+
+        //Change box animation
+        animator.SetBool("Triggered", true);
+
         //Turn off collider on bottom of box
         bottomCollider.enabled = false;
 
         //Create object (coin, mushroom, flower, star, etc)
-        Vector3 spawnPos = transform.position + new Vector3(0, 1.2f, 0);
+        if (prefab == coinPrefab)
+        {
+            spawnPos = transform.position + new Vector3(0, 1.2f, 0);
+        }
+        else
+        {
+            spawnPos = transform.position + new Vector3(0, 1f, 0);
+        }
+       
         Instantiate(prefab, spawnPos, prefab.transform.rotation);
-
-        //Change box animation
-        animator.SetBool("Triggered", true);
     }
 
     IEnumerator WaitToBreak()
     {
         Debug.Log("Wait");
 
-        yield return new WaitForSeconds(200f);
+        yield return new WaitForSeconds(0.1f);
+
+        Destroy(gameObject);
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour
 {
-    public bool isBig = false;
-
     public int score = 0;
 
     public void ScoreChecker(string objectCount)
@@ -32,6 +30,12 @@ public class ScoreCounter : MonoBehaviour
                 score += 50;
                 break;
             case "mushroom":
+                score += 1000;
+                break;
+            case "flower":
+                score += 1000;
+                break;
+            case "star":
                 score += 1000;
                 break;
             case "enemyCombo":

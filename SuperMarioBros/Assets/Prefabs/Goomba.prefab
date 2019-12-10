@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 6506841942833858642}
   - component: {fileID: 6506841942833858643}
   - component: {fileID: 6506841942833858646}
-  - component: {fileID: 6506841942833858641}
+  - component: {fileID: 2532416260201754058}
   - component: {fileID: 6506841942833858647}
   - component: {fileID: 6506841942833858640}
   m_Layer: 0
-  m_Name: Goomba1
-  m_TagString: Untagged
+  m_Name: Goomba
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,9 +30,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6506841942833858637}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.5, y: -1.5, z: 0}
+  m_LocalPosition: {x: 8.5, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7710051791917521662}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -118,7 +119,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -13.01261, y: -0.7982049}
+  m_Offset: {x: -12.969355, y: -0.7982049}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -129,10 +130,10 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9836254, y: 15.486033}
+  m_Size: {x: 0.9375887, y: 15.486033}
   m_EdgeRadius: 0
---- !u!60 &6506841942833858641
-PolygonCollider2D:
+--- !u!70 &2532416260201754058
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -144,65 +145,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.44287586, y: 0.19357067}
-      - {x: 0.38222122, y: 0.19120538}
-      - {x: 0.37769508, y: 0.2591238}
-      - {x: 0.3195305, y: 0.25852877}
-      - {x: 0.3194523, y: 0.3171932}
-      - {x: 0.25645447, y: 0.3183875}
-      - {x: 0.2556448, y: 0.3836667}
-      - {x: 0.19034958, y: 0.3829134}
-      - {x: 0.19507694, y: 0.44032532}
-      - {x: 0.12961864, y: 0.44511425}
-      - {x: 0.12961864, y: 0.5}
-      - {x: -0.13670921, y: 0.5}
-      - {x: -0.13015842, y: 0.44556904}
-      - {x: -0.19742012, y: 0.44399667}
-      - {x: -0.19557571, y: 0.37986052}
-      - {x: -0.25812817, y: 0.37829083}
-      - {x: -0.25693035, y: 0.3144232}
-      - {x: -0.31185532, y: 0.31466436}
-      - {x: -0.31245708, y: 0.2539206}
-      - {x: -0.37846184, y: 0.2546847}
-      - {x: -0.37586975, y: 0.1876182}
-      - {x: -0.44505787, y: 0.18609995}
-      - {x: -0.44483376, y: 0.066274285}
-      - {x: -0.49961185, y: 0.06325722}
-      - {x: -0.4994383, y: -0.132227}
-      - {x: -0.44454193, y: -0.13078496}
-      - {x: -0.44095802, y: -0.19038865}
-      - {x: -0.25295448, y: -0.19220611}
-      - {x: -0.2548113, y: -0.2515383}
-      - {x: -0.37865734, y: -0.2501788}
-      - {x: -0.37773037, y: -0.30649948}
-      - {x: -0.4337759, y: -0.30623877}
-      - {x: -0.43213272, y: -0.43707815}
-      - {x: -0.37026882, y: -0.43698657}
-      - {x: -0.3714733, y: -0.4792369}
-      - {x: -0.3583126, y: -0.47832}
-      - {x: -0.24841022, y: -0.4809237}
-      - {x: 0.37245083, y: -0.47712564}
-      - {x: 0.3747368, y: -0.4369825}
-      - {x: 0.43988705, y: -0.4346599}
-      - {x: 0.4383011, y: -0.31419647}
-      - {x: 0.37329865, y: -0.3138682}
-      - {x: 0.44417572, y: -0.18750498}
-      - {x: 0.44546604, y: -0.12752387}
-      - {x: 0.5031929, y: -0.13268131}
-      - {x: 0.50522804, y: 0.07159513}
-      - {x: 0.44556713, y: 0.07398212}
+  m_Offset: {x: 0.0013036728, y: 0.00008845329}
+  m_Size: {x: 0.9994488, y: 0.9994488}
+  m_Direction: 0
 --- !u!50 &6506841942833858647
 Rigidbody2D:
   serializedVersion: 4
@@ -236,3 +181,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70aff7f1ad614984ea0c47cfd147eaa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minY: {fileID: 0}
+--- !u!1 &8821192639826124379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7710051791917521662}
+  m_Layer: 0
+  m_Name: Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7710051791917521662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8821192639826124379}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.004, y: 0.496, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6506841942833858636}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

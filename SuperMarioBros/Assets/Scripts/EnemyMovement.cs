@@ -10,19 +10,42 @@ public class EnemyMovement : MonoBehaviour
     
     //Controllers
     private Rigidbody2D rBody;
-    private float minY;
+    public Transform minY;
+
+    //Check for Head Hit
+    public LayerMask whatIsPlayer;
+    public Transform headCheck;
+    private bool headHit;
+    private Vector2 size = new Vector2(1f, 0.01f);
 
     private void Start()
     {
         rBody = GetComponent<Rigidbody2D>();
 
+        Debug.Log(headCheck.localPosition);
+        Debug.Log(whatIsPlayer);
+    }
+
+    private void Update()
+    {
+        headHit = Physics2D.OverlapCapsule(headCheck.localPosition, size, CapsuleDirection2D.Horizontal, whatIsPlayer);
     }
 
     private void FixedUpdate()
     {
         rBody.velocity = new Vector2(moveSpeed, rBody.velocity.y);
 
-        //if (transform.position.y <)
+        if (transform.position.y < minY.position.y)
+        {
+            Destroy(gameObject);
+        }
+
+        if (headHit)
+        {
+            //Goombra dies
+            Debug.Log("Killed Goomba");
+            Destroy(gameObject, 1f);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,7 +56,7 @@ public class EnemyMovement : MonoBehaviour
         {
             moveSpeed *= -1;
         }
-        else if (collisionTag == "Player")
+        else if (collisionTag == "Player" && !headHit)
         {
             //Player dies
             Debug.Log("Killed by Goomba");

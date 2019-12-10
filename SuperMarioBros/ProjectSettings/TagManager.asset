@@ -7,7 +7,7 @@ TagManager:
   - Ground
   - Enemy
   - Block
-  - Brick
+  - PowerUp
   layers:
   - Default
   - TransparentFX
@@ -18,7 +18,7 @@ TagManager:
   - 
   - 
   - Ground
-  - 
+  - Player
   - 
   - 
   - 

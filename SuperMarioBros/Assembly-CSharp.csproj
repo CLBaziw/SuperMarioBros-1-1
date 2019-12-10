@@ -65,11 +65,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
-    <Compile Include="Assets\Scripts\Feet.cs" />
     <Compile Include="Assets\Scripts\Items\Boxes.cs" />
     <Compile Include="Assets\Scripts\Items\BrickBreak.cs" />
     <Compile Include="Assets\Scripts\Items\Coin.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PowerUpMovement.cs" />
+    <Compile Include="Assets\Scripts\PowerUpTracker.cs" />
     <Compile Include="Assets\Scripts\ScoreCounter.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/GitHub/Centennial/COMP391/SuperMarioBros/SuperMarioBros/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

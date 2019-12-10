@@ -14,11 +14,11 @@ public class CameraController : MonoBehaviour
         transCamera = GetComponent<Transform>();
         transPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
-        maxX = transPlayer.position.x;
+        maxX = transCamera.position.x;
     }
 
     // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
         float playerX = transPlayer.position.x;
 

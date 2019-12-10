@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 1585442057251281182}
   - component: {fileID: 1585442057251281183}
   - component: {fileID: 1585442057251281181}
-  - component: {fileID: 1585442057251281179}
   - component: {fileID: 1585442057251281184}
+  - component: {fileID: 1270928011}
   m_Layer: 8
   m_Name: Brick
-  m_TagString: Brick
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585442057251281186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.5, y: 1.5, z: 0}
+  m_LocalPosition: {x: 7.5, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -151,7 +151,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!95 &1585442057251281179
+--- !u!114 &1585442057251281184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585442057251281186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac10428422a9b4f8d2a75ec53c2f47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 3599201016527207742, guid: af0657f3434874543aa0656915acb656,
+    type: 3}
+  brickPrefab: {fileID: 2129838747723220055, guid: 07eeeb696b9d4cd44a221f19dbd3f2fc,
+    type: 3}
+  mushroomPrefab: {fileID: 5764175780531962378, guid: 5f713fbabc17ca449b55e10dab9c3905,
+    type: 3}
+  flowerPrefab: {fileID: 959156433107553795, guid: c7bbcf2239e85fb4a8e52d2670748a05,
+    type: 3}
+  starPrefab: {fileID: 1528297094281000602, guid: d7f531a9ce62aa341a7042a5964e4144,
+    type: 3}
+  animator: {fileID: 0}
+  bottomCollider: {fileID: 1585442057251281182}
+--- !u!95 &1270928011
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -170,18 +194,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1585442057251281184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585442057251281186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faac10428422a9b4f8d2a75ec53c2f47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 2129838747723220055, guid: 07eeeb696b9d4cd44a221f19dbd3f2fc, type: 3}
-  animator: {fileID: 0}
-  bottomCollider: {fileID: 0}

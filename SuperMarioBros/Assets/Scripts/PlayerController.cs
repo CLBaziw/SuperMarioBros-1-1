@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 vecTLBoundary;
     public GameObject bottomBoundary;
     private float botBoundary;
-    public AudioSource audio;
+    public AudioSource audioJump;
 
     //Jumping movement
     public bool isGrounded;
@@ -46,7 +47,8 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-        if (isGrounded){
+        if (isGrounded)
+        {
             timeCounter = jumpTime;
         }
     }
@@ -113,7 +115,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 //Play jump SFX
-                audio.Play();
+                audioJump.Play();
 
                 ApplyVerticalVelocity();
                 isJumping = true;
@@ -145,5 +147,5 @@ public class PlayerController : MonoBehaviour
     }
 }
 
-   
+
 
