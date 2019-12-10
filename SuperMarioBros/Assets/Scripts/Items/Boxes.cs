@@ -7,17 +7,18 @@ public class Boxes : MonoBehaviour
     public GameObject prefab;
     private Animator animator;
 
-    private GameController gController;
+    private ScoreCounter tracker;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        gController = FindObjectOfType<GameController>();
+        tracker = FindObjectOfType<ScoreCounter> ();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Collider2D bottomCollider = GetComponent<Collider2D>();
+        IEnumerator coroutine = WaitToBreak();
 
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -35,7 +36,7 @@ public class Boxes : MonoBehaviour
 
                         Debug.Log("about to wait");
 
-                    StartCoroutine("WaitToBreak");
+                    StartCoroutine(coroutine);
 
                         Destroy(gameObject);
                     //}
@@ -65,7 +66,7 @@ public class Boxes : MonoBehaviour
         {
             Debug.Log("Wait");
 
-            yield return new WaitForSeconds(200);
+            yield return new WaitForSeconds(200f);
         }
     }
 }

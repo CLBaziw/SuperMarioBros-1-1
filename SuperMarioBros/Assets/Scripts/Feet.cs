@@ -18,7 +18,9 @@ public class Feet : MonoBehaviour
         }
         else
         {
-            playerC.isJumping = false;
+            Debug.Log("Player hit ground");
+            playerC.isGrounded = true;
+            Debug.Log(playerC.isGrounded);
         }
     }
 }

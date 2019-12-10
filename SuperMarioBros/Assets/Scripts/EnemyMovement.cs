@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
     //Movement variables
     private float moveSpeed = 0f; //Start idle
+    const float goomba = -1.82f;
     
     //Controllers
     private Rigidbody2D rBody;
@@ -47,7 +48,7 @@ public class EnemyMovement : MonoBehaviour
         {
             boxCollider.enabled = false;
             
-            moveSpeed = -2f;
+            moveSpeed = goomba;
         }
     }
 }

@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour
 
     //Jumping movement
     public bool isJumping;
-    const float jumpSpeed = 18f;
+    public bool isGrounded;
+    const float jumpSpeed = 6f;
+    const float jumpTime = 0.2f;
+    private float jumpTimeCounter;
     
     //Controllers
     private Animator animator;
@@ -24,12 +27,20 @@ public class PlayerController : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         transBoundary = GameObject.Find("MinXMaxY").GetComponent<Transform>();
+
+        jumpTimeCounter = jumpTime;
+        isGrounded = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         horiz = Input.GetAxisRaw("Horizontal");
+
+        if (isGrounded)
+        {
+            jumpTimeCounter = jumpTime;
+        }
     }
 
     private void FixedUpdate()
@@ -38,40 +49,61 @@ public class PlayerController : MonoBehaviour
         const int WALK = 1;
         const int JUMP = 2;
 
-        if (Input.GetAxis("Jump") > 0 && !isJumping)
+        if (Input.GetButtonDown("Jump")) //If space was pressed
         {
-            rBody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse); //Impulse = add force right away
-            isJumping = true;
+            Debug.Log(isGrounded);
 
-            animator.SetLayerWeight(JUMP, 1);
-        }
-
-        if (horiz != 0) //Player is walking
-        {
-            animator.SetFloat("Horizontal", horiz);
-
-            if (!isJumping)
+            if (isGrounded) //If player is on the ground
             {
-                animator.SetLayerWeight(WALK, 1);
+                rBody.velocity = new Vector2(rBody.velocity.x, jumpSpeed);
+                //rBody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                isJumping = true;
+                isGrounded = false;
+
+                animator.SetLayerWeight(JUMP, 1);
             }
         }
-        else if (!isJumping)  //Player is idle
+
+        if ((Input.GetButton("Jump") && isJumping))
         {
-            animator.SetLayerWeight(WALK, 0);
+            if (jumpTimeCounter > 0)
+            {
+                //keep jumping!
+                rBody.velocity = new Vector2(rBody.velocity.x, jumpSpeed);
+                //rBody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                jumpTimeCounter -= Time.deltaTime;
+            }
+        }
+
+        if (!Input.GetButtonUp("Jump"))
+        {
+            //stop jumping and set your counter to zero.  The timer will reset once we touch the ground again in the update function.
+            jumpTimeCounter = 0;
+            isJumping = false;
             animator.SetLayerWeight(JUMP, 0);
         }
+
+        if (!isJumping)
+        {
+            if (horiz != 0)
+            {
+                animator.SetFloat("Horizontal", horiz);
+                animator.SetLayerWeight(WALK, 1);
+            }
+            else if (horiz == 0)
+            { 
+                animator.SetLayerWeight(JUMP, 0);
+                animator.SetLayerWeight(WALK, 0);
+            }
+        }
+       
+        
+        
 
         rBody.velocity = new Vector2(horiz * moveSpeed, rBody.velocity.y);
 
         vecBoundary = transBoundary.position;
 
         rBody.position = new Vector2(Mathf.Clamp(rBody.position.x, vecBoundary.x, float.MaxValue ), Mathf.Clamp(rBody.position.y, -3, vecBoundary.y));
-    }
-
-    private void OnCollisionEnter2D(Collision2D floor)
-    {
-        if (floor.gameObject.CompareTag("Ground")){
-            isJumping = false;
-        }
     }
 }
