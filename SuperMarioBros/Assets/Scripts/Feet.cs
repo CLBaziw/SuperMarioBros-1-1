@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class Feet : MonoBehaviour
 {
-    private PlayerController playerC;
+    public PlayerController pCont;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        playerC = FindObjectOfType<PlayerController>();
+        
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -19,8 +27,8 @@ public class Feet : MonoBehaviour
         else
         {
             Debug.Log("Player hit ground");
-            playerC.isGrounded = true;
-            Debug.Log(playerC.isGrounded);
+            pCont.isGrounded = true;
+            Debug.Log(pCont.isGrounded);
         }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3217714274813996781}
   - component: {fileID: 3217714274813996847}
   - component: {fileID: 3217714274813996780}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BoxCoin
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -160,4 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faac10428422a9b4f8d2a75ec53c2f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 3599201016527207742, guid: af0657f3434874543aa0656915acb656, type: 3}
+  animator: {fileID: 3217714274813996819}
+  bottomCollider: {fileID: 3217714274813996781}

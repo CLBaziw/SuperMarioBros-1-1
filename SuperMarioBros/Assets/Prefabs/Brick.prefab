@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1585442057251281181}
   - component: {fileID: 1585442057251281179}
   - component: {fileID: 1585442057251281184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Brick
   m_TagString: Brick
   m_Icon: {fileID: 0}
@@ -183,3 +183,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2129838747723220055, guid: 07eeeb696b9d4cd44a221f19dbd3f2fc, type: 3}
+  animator: {fileID: 0}
+  bottomCollider: {fileID: 0}

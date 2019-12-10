@@ -36,6 +36,7 @@ public class EnemyMovement : MonoBehaviour
         else if (collisionTag == "Player")
         {
             //Player dies
+            Debug.Log("Killed by Goomba");
         }
     }
 

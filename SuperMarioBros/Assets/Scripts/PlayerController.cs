@@ -4,106 +4,146 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //Horiztontal Movement
+    //Horizontal movement
     private float horiz;
-    const float moveSpeed = 7.5f;
-    private Transform transBoundary;
-    private Vector3 vecBoundary;
+    const float moveSpeed = 5f;
+    private float horizForce = moveSpeed;
+
+    //Controllers
+    public Rigidbody2D rBody;
+    public Animator animator;
+    public GameObject topLeftBoundary;
+    private Vector2 vecTLBoundary;
+    public GameObject bottomBoundary;
+    private float botBoundary;
+    public AudioSource audio;
 
     //Jumping movement
-    public bool isJumping;
     public bool isGrounded;
-    const float jumpSpeed = 6f;
-    const float jumpTime = 0.2f;
-    private float jumpTimeCounter;
-    
-    //Controllers
-    private Animator animator;
-    private Rigidbody2D rBody;
+    public bool isJumping;
+    const float upForce = 10f;
+    public LayerMask whatIsGround;
+    public Transform groundCheck;
+    public float groundCheckRadius;
+    const float fallMultiplier = 5f;
 
-    // Start is called before the first frame update
-    void Start()
+    //Jump timer
+    const float jumpTime = 0.3f;
+    private float timeCounter = 0;
+
+    //Layer Index
+    private const int JUMP = 2;
+    private const int WALK = 1;
+
+    private void Start()
     {
-        rBody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        transBoundary = GameObject.Find("MinXMaxY").GetComponent<Transform>();
-
-        jumpTimeCounter = jumpTime;
         isGrounded = true;
+        isJumping = false;
+        timeCounter = jumpTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        horiz = Input.GetAxisRaw("Horizontal");
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-        if (isGrounded)
-        {
-            jumpTimeCounter = jumpTime;
+        if (isGrounded){
+            timeCounter = jumpTime;
         }
     }
 
     private void FixedUpdate()
     {
-        //Layer indexes
-        const int WALK = 1;
-        const int JUMP = 2;
+        horiz = Input.GetAxisRaw("Horizontal");
+        vecTLBoundary = topLeftBoundary.transform.position;
+        botBoundary = bottomBoundary.transform.position.y;
 
-        if (Input.GetButtonDown("Jump")) //If space was pressed
+        Jump();
+
+        //Faster fall time
+        if (rBody.velocity.y < -0.01)
         {
-            Debug.Log(isGrounded);
-
-            if (isGrounded) //If player is on the ground
-            {
-                rBody.velocity = new Vector2(rBody.velocity.x, jumpSpeed);
-                //rBody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-                isJumping = true;
-                isGrounded = false;
-
-                animator.SetLayerWeight(JUMP, 1);
-            }
+            rBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
 
-        if ((Input.GetButton("Jump") && isJumping))
-        {
-            if (jumpTimeCounter > 0)
-            {
-                //keep jumping!
-                rBody.velocity = new Vector2(rBody.velocity.x, jumpSpeed);
-                //rBody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-                jumpTimeCounter -= Time.deltaTime;
-            }
-        }
+        Movement();
 
-        if (!Input.GetButtonUp("Jump"))
+        if (isGrounded)
         {
-            //stop jumping and set your counter to zero.  The timer will reset once we touch the ground again in the update function.
-            jumpTimeCounter = 0;
-            isJumping = false;
+            horizForce = moveSpeed; //Move faster on the ground
+
             animator.SetLayerWeight(JUMP, 0);
-        }
-
-        if (!isJumping)
-        {
             if (horiz != 0)
             {
                 animator.SetFloat("Horizontal", horiz);
                 animator.SetLayerWeight(WALK, 1);
             }
             else if (horiz == 0)
-            { 
-                animator.SetLayerWeight(JUMP, 0);
+            {
                 animator.SetLayerWeight(WALK, 0);
             }
         }
-       
-        
-        
+        else
+        {
+            horizForce = moveSpeed / 2; //Move slowly horizontally when airborne
 
-        rBody.velocity = new Vector2(horiz * moveSpeed, rBody.velocity.y);
+            animator.SetLayerWeight(JUMP, 1);
+        }
 
-        vecBoundary = transBoundary.position;
+        //If player has fallen
+        if (transform.position.y < bottomBoundary.transform.position.y)
+        {
+            //Player dies
+            Debug.Log("Player has fallen");
+        }
+    }
 
-        rBody.position = new Vector2(Mathf.Clamp(rBody.position.x, vecBoundary.x, float.MaxValue ), Mathf.Clamp(rBody.position.y, -3, vecBoundary.y));
+    private void Movement()
+    {
+        rBody.velocity = new Vector2(horiz * horizForce, rBody.velocity.y);
+
+        rBody.position = new Vector2(Mathf.Clamp(rBody.position.x, vecTLBoundary.x, float.MaxValue), Mathf.Clamp(rBody.position.y, -3, vecTLBoundary.y));
+    }
+
+    private void Jump()
+    {
+        //if space bar is pressed
+        if (Input.GetButtonDown("Jump"))
+        {
+            //if Mario is on the ground
+            if (isGrounded)
+            {
+                //Play jump SFX
+                audio.Play();
+
+                ApplyVerticalVelocity();
+                isJumping = true;
+            }
+        }
+
+        //if space bar is held
+        if (Input.GetButton("Jump") && isJumping)
+        {
+            //Keep jumping
+            if (timeCounter > 0)
+            {
+                ApplyVerticalVelocity();
+                timeCounter -= Time.deltaTime;
+            }
+        }
+
+        //when space bar is lifted
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
+            timeCounter = 0;
+        }
+    }
+
+    private void ApplyVerticalVelocity()
+    {
+        rBody.velocity = Vector2.up * upForce;
     }
 }
+
+   
+

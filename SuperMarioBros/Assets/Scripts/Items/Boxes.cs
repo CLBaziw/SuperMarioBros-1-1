@@ -5,7 +5,8 @@ using UnityEngine;
 public class Boxes : MonoBehaviour
 {
     public GameObject prefab;
-    private Animator animator;
+    public Animator animator;
+    public Collider2D bottomCollider;
 
     private ScoreCounter tracker;
 
@@ -17,56 +18,55 @@ public class Boxes : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Collider2D bottomCollider = GetComponent<Collider2D>();
         IEnumerator coroutine = WaitToBreak();
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && CompareTag("Block"))
         {
             if (name == "MultiCoinBox")
             {
                 //Let Mario hit bottom for 10 coins within 5 seconds (or something)
             }
             else
-            {              
+            {
                 if (tag == "Brick")
                 {
                     //if (gController.isBig)
                     //{
-                        instantiateObj();
+                    InstantiateObj();
 
-                        Debug.Log("about to wait");
+                    Debug.Log("about to wait");
 
                     StartCoroutine(coroutine);
 
-                        Destroy(gameObject);
+                    Destroy(gameObject);
                     //}
-                        
+
                 }
                 else
                 {
-                    instantiateObj();
+                    InstantiateObj();
                 }
-            }            
+            }
         }
+    }
 
-        void instantiateObj()
-        {
-            //Turn off collider on bottom of box
-            bottomCollider.enabled = false;
+    void InstantiateObj()
+    {
+        //Turn off collider on bottom of box
+        bottomCollider.enabled = false;
 
-            //Create object (coin, mushroom, flower, star, etc)
-            Vector3 spawnPos = transform.position + new Vector3(0, 1.2f, 0);
-            Instantiate(prefab, spawnPos, prefab.transform.rotation);
+        //Create object (coin, mushroom, flower, star, etc)
+        Vector3 spawnPos = transform.position + new Vector3(0, 1.2f, 0);
+        Instantiate(prefab, spawnPos, prefab.transform.rotation);
 
-            //Change box animation
-            animator.SetBool("Triggered", true);
-        }
+        //Change box animation
+        animator.SetBool("Triggered", true);
+    }
 
-        IEnumerator WaitToBreak()
-        {
-            Debug.Log("Wait");
+    IEnumerator WaitToBreak()
+    {
+        Debug.Log("Wait");
 
-            yield return new WaitForSeconds(200f);
-        }
+        yield return new WaitForSeconds(200f);
     }
 }
