@@ -63,12 +63,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Pole.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\Items\Boxes.cs" />
     <Compile Include="Assets\Scripts\Items\BrickBreak.cs" />
     <Compile Include="Assets\Scripts\Items\Coin.cs" />
     <Compile Include="Assets\Scripts\Items\PowerUpMovement.cs" />
+    <Compile Include="Assets\Scripts\Player\Fireball.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerDeath.cs" />
     <Compile Include="Assets\Scripts\PowerUpTracker.cs" />

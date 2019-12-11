@@ -13,8 +13,12 @@ public class EnemyMovement : MonoBehaviour
     public Transform minY;
     public Animator animator;
     public AudioSource audioStomp;
+    public Collider2D goombaCollider;
+
+    //Scripts
     private ScoreCounter trackerScore;
-    private PlayerDeath playerDeath; 
+    private PlayerDeath playerDeath;
+    private Boxes boxes;
 
     //Check for Head Hit
     public LayerMask whatIsPlayer;
@@ -26,6 +30,7 @@ public class EnemyMovement : MonoBehaviour
     {
         trackerScore = FindObjectOfType<ScoreCounter>();
         playerDeath = FindObjectOfType<PlayerDeath>();
+        boxes = FindObjectOfType<Boxes>();
     }
 
     private void Update()
@@ -35,7 +40,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //If enemy goes below floor, destroy it
+         //If enemy goes below floor, destroy it
         if (transform.position.y < minY.position.y)
         {
             Destroy(gameObject);
@@ -43,17 +48,33 @@ public class EnemyMovement : MonoBehaviour
 
         if (headHit)
         {
-            //Goombra dies
+            //Goomba dies
             animator.SetBool("Death", true); //Change animation to death animation
             
             audioStomp.Play(); //Play stomp noise
-            Destroy(gameObject, 0.3f); //Wait __f seconds to destroy enemy
 
-            trackerScore.ScoreChecker("enemy");//Add score
+            rBody.bodyType = RigidbodyType2D.Static;
+
+            Destroy(gameObject, 0.3f); //Wait __f seconds to destroy enemy
         }
         else
         {
             rBody.velocity = new Vector2(moveSpeed, rBody.velocity.y); //Make enemy walk
+        }
+
+        if (boxes.shake) 
+        {
+            float boxMinX = boxes.boxTriggered.transform.position.x - 0.5f;
+            float boxMaxX = boxes.boxTriggered.transform.position.x + 0.5f;
+
+            if (transform.position.x < boxMaxX && transform.position.x > boxMinX)
+            {
+
+                goombaCollider.enabled = false;
+
+                animator.SetBool("UpsideDown", true);
+                rBody.velocity *= -1;
+            }
         }
     }
 

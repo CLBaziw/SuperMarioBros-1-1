@@ -20,7 +20,13 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        float playerX = transPlayer.position.x;
+        float playerX = 0;
+
+        if (transPlayer != null)
+        {
+            playerX = transPlayer.position.x;
+        }
+        
 
         if (playerX > maxX)
         {

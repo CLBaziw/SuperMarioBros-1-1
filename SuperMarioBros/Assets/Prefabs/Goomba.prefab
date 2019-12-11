@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6506841942833858637}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: -1.5, z: 0}
+  m_LocalPosition: {x: 9.508242, y: -1.4783812, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7710051791917521662}
@@ -142,7 +142,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 6506841942833858637}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5ea560cd7b333684b883ad4596efd645, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -282,6 +282,7 @@ MonoBehaviour:
   minY: {fileID: 0}
   animator: {fileID: 6506841942833858643}
   audioStomp: {fileID: -5782241012735730348}
+  goombaCollider: {fileID: 2532416260201754058}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 512

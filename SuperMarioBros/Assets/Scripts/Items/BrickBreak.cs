@@ -55,7 +55,6 @@ public class BrickBreak : MonoBehaviour
                 Rigidbody2D rbSmallBrick = smallBrick[i].GetComponent<Rigidbody2D>();
                 rbSmallBrick.AddForce(transform.position * upForce[i], ForceMode2D.Impulse);
 
-                Debug.Log(name);
                 Destroy(gameObject);
             }
 

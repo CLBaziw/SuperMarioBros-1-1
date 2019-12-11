@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Horizontal movement
-    private float horiz;
+    public float horiz;
     const float moveSpeed = 5f;
     private float horizForce = moveSpeed;
 
@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     private const int JUMP = 2;
     private const int WALK = 1;
 
+    //Fireball
+    public GameObject fireball;
+    private Vector3 spawnPos;
+
     private void Start()
     {
         isGrounded = true;
@@ -53,7 +57,22 @@ public class PlayerController : MonoBehaviour
             timeCounter = jumpTime;
         }
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (horiz < 0)
+            {
+                spawnPos = transform.position + new Vector3(-1f, 0, 0);
+            }
+            else
+            {
+                spawnPos = transform.position + new Vector3(1f, 0, 0);
+            }
+
+            Instantiate(fireball, spawnPos, fireball.transform.rotation);
+        }
+
         Jump();
+        Movement();
     }
 
     private void FixedUpdate()
@@ -66,8 +85,6 @@ public class PlayerController : MonoBehaviour
         {
             rBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-
-        Movement();
 
         if (isGrounded)
         {

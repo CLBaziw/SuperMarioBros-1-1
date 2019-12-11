@@ -20,8 +20,6 @@ public class Coin : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(scoreTracker);
-
         scoreTracker.ScoreChecker("coin");
         Destroy(gameObject);
     }

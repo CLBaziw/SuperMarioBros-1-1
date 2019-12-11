@@ -14,11 +14,11 @@ public class Boxes : MonoBehaviour
 
     public Animator animator;
     private Rigidbody2D rBody;
-    public Collider2D bottomCollider;
     private PowerUpTracker trackerPU;
 
     private Vector2 startPos;
-    private bool shake;
+    public bool shake;
+    public GameObject boxTriggered;
     private bool isFalling = false;
 
     private void Start()
@@ -36,49 +36,29 @@ public class Boxes : MonoBehaviour
         if (shake)
         {
             double difPos = transform.position.y - startPos.y;
-            double difPosRounded = Math.Round(difPos, 1);
-
-            Debug.Log(difPos);
 
             if (difPos < difHeight && !isFalling)
             {
-                Debug.Log("Rise");
                 rBody.bodyType = RigidbodyType2D.Dynamic;
                 rBody.velocity = new Vector2(0, 10f);
 
             }
-            else if (difPosRounded >= difHeight)
+            else if (difPos >= difHeight)
             {
                 rBody.velocity *= -2f;
                 isFalling = true;
-                Debug.Log("Fall");    
             }
 
-            if (difPos < 0)
+            if (difPos < 0 && shake)
             {
                 shake = false;
 
-                Debug.Log("Stop falling");
                 rBody.bodyType = RigidbodyType2D.Static;
                 transform.position = startPos;
 
-                if (name.Contains("Brick"))
-                {
-                    if (trackerPU.isBig) //If player is big destroy brick
-                    {
-                        IEnumerator waitBreak = WaitToBreak();
-
-                        prefab = brickPrefab;
-                        InstantiateObj();
-                        StartCoroutine(waitBreak);
-                    }
-                }
-                else
-                {
-                    InstantiateObj();
-                }
+                Debug.Log("Called InstantiateObj");
+                InstantiateObj();
             }
-
         }
     }
 
@@ -87,34 +67,7 @@ public class Boxes : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             shake = true;
-
-            if (name == "MultiCoinBox")
-            {
-                //Let Mario hit bottom for 10 coins within 5 seconds (or something)
-            }
-            else
-            {
-                //Change box animation
-                animator.SetBool("Triggered", true);
-
-                //Turn off collider on bottom of box
-                bottomCollider.enabled = false;
-
-                if (name.Contains("Coin")) //Box should give out coins
-                {
-                    prefab = coinPrefab;
-                }
-                else if (name.Contains("Star")) //Brick should give star man powerup
-                {
-                    prefab = starPrefab;
-                }
-                else
-                {
-                    CheckPowerUp(); //If player is small, give mushroom. If player is big, give flower.
-                }
-
-                Debug.Log(name);                
-            }
+            boxTriggered = gameObject;
         }
     }
 
@@ -133,7 +86,53 @@ public class Boxes : MonoBehaviour
 
     void InstantiateObj()
     {
-        Vector3 spawnPos; 
+        Vector3 spawnPos;
+        bool objectUsed = false;
+
+        Debug.Log(name);
+
+        if (name == "MultiCoinBox")
+        {
+            objectUsed = false;
+            
+            //Let Mario hit bottom for 10 coins within 5 seconds (or something)
+        }
+        else if (name.Contains("Brick"))
+        {
+            if (trackerPU.isBig) //If player is big destroy brick
+            {
+                Debug.Log("Player is big");
+                
+                prefab = brickPrefab;
+                Destroy(gameObject, 0.12f);
+
+                objectUsed = true;
+            }
+            else
+            {
+                Debug.Log("Player is small");
+                prefab = null;
+
+                objectUsed = false;
+            }
+        }
+        else
+        {
+            objectUsed = false;
+
+            if (name.Contains("Coin")) //Box should give out coins
+            {
+                prefab = coinPrefab;
+            }
+            else if (name.Contains("Star")) //Brick should give star man powerup
+            {
+                prefab = starPrefab;
+            }
+            else if (name.Contains("Power"))
+            {
+                CheckPowerUp(); //If player is small, give mushroom. If player is big, give flower.
+            }
+        }
 
         //Create object (coin, mushroom, flower, star, etc)
         if (prefab == coinPrefab)
@@ -144,14 +143,22 @@ public class Boxes : MonoBehaviour
         {
             spawnPos = transform.position + new Vector3(0, 1f, 0);
         }
-       
-        Instantiate(prefab, spawnPos, prefab.transform.rotation);
-    }
 
-    IEnumerator WaitToBreak()
-    {
-        yield return new WaitForSeconds(0.12f);
+        if (prefab != null)
+        {
+            Debug.Log("Instantiating object");
+            Instantiate(prefab, spawnPos, prefab.transform.rotation);
 
-        Destroy(gameObject);
+            //Change box animation
+            animator.SetBool("Triggered", true);
+        }
+
+        Debug.Log(gameObject.name);
+        Debug.Log(GetComponent<EdgeCollider2D>().isTrigger);
+        
+        if (objectUsed)
+        {
+            Destroy(GetComponent<EdgeCollider2D>()) ;
+        }
     }
 }

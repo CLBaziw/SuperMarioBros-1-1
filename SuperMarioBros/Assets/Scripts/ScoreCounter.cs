@@ -16,7 +16,6 @@ public class ScoreCounter : MonoBehaviour
         //Goomba hit on then the other with no hitting ground = 100 for first one + 200 for second
         //Turtle = 100
         //Hit shell turtle = 500
-        Debug.Log("Score Counter: " + objectCount);
 
         switch (objectCount)
         {
