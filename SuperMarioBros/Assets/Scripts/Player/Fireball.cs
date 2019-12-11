@@ -22,7 +22,7 @@ public class Fireball : MonoBehaviour
 
         if (rb.velocity.y < fireballV.y)
         {
-            rb.velocity = fireballV * playerC.horiz;
+            rb.velocity = fireballV;
         }
     }
 

@@ -16,11 +16,12 @@ public class Coin : MonoBehaviour
         scoreTracker = FindObjectOfType<ScoreCounter>();
 
         rBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
+
+        scoreTracker.ScoreChecker("coin");//Update score
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        scoreTracker.ScoreChecker("coin");
         Destroy(gameObject);
     }
 }

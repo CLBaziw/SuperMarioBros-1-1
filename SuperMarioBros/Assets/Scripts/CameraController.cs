@@ -12,7 +12,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         transCamera = GetComponent<Transform>();
-        transPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         maxX = transCamera.position.x;
     }
@@ -20,6 +19,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        transPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
         float playerX = 0;
 
         if (transPlayer != null)

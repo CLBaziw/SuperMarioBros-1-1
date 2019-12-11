@@ -8,16 +8,18 @@ public class PlayerController : MonoBehaviour
     //Horizontal movement
     public float horiz;
     const float moveSpeed = 5f;
-    private float horizForce = moveSpeed;
+    public float horizForce = moveSpeed;
 
     //Controllers
     public Rigidbody2D rBody;
     public Animator animator;
-    public GameObject topLeftBoundary;
-    private Vector2 vecTLBoundary;
-    public GameObject bottomBoundary;
-    private float botBoundary;
     public AudioSource audioJump;
+    
+    //Movement Boundaries
+    private Vector2 vecTLBoundary;
+    private GameObject bottomBoundary;
+    private GameObject topLeftBoundary;
+    private float botBoundary;
 
     //Jumping movement
     public bool isGrounded;
@@ -40,11 +42,25 @@ public class PlayerController : MonoBehaviour
     public GameObject fireball;
     private Vector3 spawnPos;
 
+    //Scripts
+    private PlayerDeath playerDeath;
+    private PowerUpTracker trackerPU;
+
+    private bool death = false;
+
     private void Start()
     {
+        playerDeath = GetComponent<PlayerDeath>();
+        trackerPU = FindObjectOfType<PowerUpTracker>();
+
+        bottomBoundary = GameObject.Find("MinY");
+        topLeftBoundary = GameObject.Find("MinXMaxY");
+
         isGrounded = true;
         isJumping = false;
         timeCounter = jumpTime;
+
+        horiz = 0.1f;
     }
 
     private void Update()
@@ -57,18 +73,12 @@ public class PlayerController : MonoBehaviour
             timeCounter = jumpTime;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (trackerPU.isFlower)
         {
-            if (horiz < 0)
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                spawnPos = transform.position + new Vector3(-1f, 0, 0);
+                Fireball();
             }
-            else
-            {
-                spawnPos = transform.position + new Vector3(1f, 0, 0);
-            }
-
-            Instantiate(fireball, spawnPos, fireball.transform.rotation);
         }
 
         Jump();
@@ -88,27 +98,29 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            animator.SetLayerWeight(JUMP, 0);
+            animator.SetBool("Jump", false);
             if (horiz != 0)
             {
                 animator.SetFloat("Horizontal", horiz);
-                animator.SetLayerWeight(WALK, 1);
+                animator.SetBool("Walking", true);
             }
             else if (horiz == 0)
             {
-                animator.SetLayerWeight(WALK, 0);
+                animator.SetBool("Walking", false);
             }
         }
         else
         {
-            animator.SetLayerWeight(JUMP, 1);
+            animator.SetBool("Jump", true);
         }
 
         //If player has fallen
-        if (transform.position.y < bottomBoundary.transform.position.y)
+        if (transform.position.y < bottomBoundary.transform.position.y & !death)
         {
-            //Player dies
-            Debug.Log("Player has fallen");
+            death = true; 
+
+            trackerPU.isBig = false;
+            playerDeath.DeathChecker();
         }
     }
 
@@ -157,6 +169,20 @@ public class PlayerController : MonoBehaviour
     private void ApplyVerticalVelocity()
     {
         rBody.velocity = Vector2.up * upForce;
+    }
+
+    private void Fireball()
+    {
+        if (horiz < 0)
+        {
+            spawnPos = transform.position + new Vector3(-1f, 0, 0);
+        }
+        else
+        {
+            spawnPos = transform.position + new Vector3(1f, 0, 0);
+        }
+
+        Instantiate(fireball, spawnPos, fireball.transform.rotation);
     }
 }
 

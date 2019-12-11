@@ -182,7 +182,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cd67278ad27714147852c750a91cbb69, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.461
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -281,12 +281,14 @@ MonoBehaviour:
   rBody: {fileID: 6506841942833858647}
   minY: {fileID: 0}
   animator: {fileID: 6506841942833858643}
-  audioStomp: {fileID: -5782241012735730348}
+  audioSource: {fileID: -5782241012735730348}
   goombaCollider: {fileID: 2532416260201754058}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 512
   headCheck: {fileID: 7710051791917521662}
+  stomp: {fileID: 8300000, guid: cd67278ad27714147852c750a91cbb69, type: 3}
+  die: {fileID: 8300000, guid: 933329a4583504e48a2245f135b4f975, type: 3}
 --- !u!1 &8821192639826124379
 GameObject:
   m_ObjectHideFlags: 0

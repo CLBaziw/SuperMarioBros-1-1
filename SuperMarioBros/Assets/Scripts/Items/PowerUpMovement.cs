@@ -15,15 +15,19 @@ public class PowerUpMovement : MonoBehaviour
     private ScoreCounter trackerScore;
 
     private Collider2D colliderPU;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         rBody = GetComponent<Rigidbody2D>();
         minY = GameObject.Find("MinY").GetComponent<Transform>();
-        trackerPU = GameObject.Find("GameController").GetComponent<PowerUpTracker>();
+        trackerPU = GameObject.Find("PowerUpController").GetComponent<PowerUpTracker>();
         trackerScore = GameObject.Find("GameController").GetComponent<ScoreCounter>();
         colliderPU = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.Play();
     }
 
     // Update is called once per frame
@@ -32,7 +36,7 @@ public class PowerUpMovement : MonoBehaviour
         if (name.Contains("Mushroom"))
         {
             objType = "mushroom";
-            rBody.velocity = new Vector2(moveSpeed, rBody.velocity.y);
+            rBody.velocity = new Vector2(moveSpeed * 2, rBody.velocity.y);
         }
         else if (name.Contains("Flower"))
         {
@@ -60,7 +64,7 @@ public class PowerUpMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         string collisionTag = collision.gameObject.tag;
-        IEnumerator coroutine = WaitForCollider();
+        //IEnumerator coroutine = WaitForCollider();
 
         if (objType == "star")
         {   
@@ -89,39 +93,22 @@ public class PowerUpMovement : MonoBehaviour
             //Player gets power up
             if (objType == "mushroom")
             {
-                GrowAnimation();
                 trackerPU.isBig = true;
             }
             else if (objType == "flower")
             {
-                FlowerPowerAnimation();
                 trackerPU.isFlower = true;
             }
             else
             {
-                StarManAnimation();
                 trackerPU.isStar = true;
             }
 
             trackerScore.ScoreChecker(objType);
 
+            trackerPU.TransformPlayer();
             Destroy(gameObject);
         }
-    }
-
-    private void GrowAnimation()
-    {
-
-    }
-
-    private void FlowerPowerAnimation()
-    {
-
-    }
-
-    private void StarManAnimation()
-    {
-
     }
 
     IEnumerator WaitForCollider()

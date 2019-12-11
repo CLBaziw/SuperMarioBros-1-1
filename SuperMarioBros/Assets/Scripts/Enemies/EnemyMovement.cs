@@ -12,11 +12,12 @@ public class EnemyMovement : MonoBehaviour
     public Rigidbody2D rBody;
     public Transform minY;
     public Animator animator;
-    public AudioSource audioStomp;
+    public AudioSource audioSource;
     public Collider2D goombaCollider;
 
     //Scripts
     private ScoreCounter trackerScore;
+    private PowerUpTracker trackerPU;
     private PlayerDeath playerDeath;
     private Boxes boxes;
 
@@ -26,10 +27,14 @@ public class EnemyMovement : MonoBehaviour
     private Vector2 size = new Vector2(0.6f, 0.01f);
     private bool headHit = false;
 
+    //Audio Clips
+    public AudioClip stomp;
+    public AudioClip die;
+
     private void Start()
     {
         trackerScore = FindObjectOfType<ScoreCounter>();
-        playerDeath = FindObjectOfType<PlayerDeath>();
+        trackerPU = FindObjectOfType<PowerUpTracker>();
         boxes = FindObjectOfType<Boxes>();
     }
 
@@ -49,13 +54,7 @@ public class EnemyMovement : MonoBehaviour
         if (headHit)
         {
             //Goomba dies
-            animator.SetBool("Death", true); //Change animation to death animation
-            
-            audioStomp.Play(); //Play stomp noise
-
-            rBody.bodyType = RigidbodyType2D.Static;
-
-            Destroy(gameObject, 0.3f); //Wait __f seconds to destroy enemy
+            KillEnemy();
         }
         else
         {
@@ -69,11 +68,7 @@ public class EnemyMovement : MonoBehaviour
 
             if (transform.position.x < boxMaxX && transform.position.x > boxMinX)
             {
-
-                goombaCollider.enabled = false;
-
-                animator.SetBool("UpsideDown", true);
-                rBody.velocity *= -1;
+                KillEnemy();
             }
         }
     }
@@ -89,7 +84,15 @@ public class EnemyMovement : MonoBehaviour
         else if (collisionTag == "Player" && !headHit) //If player hits enemy but not from above, kill player
         {
             //Player dies
-            playerDeath.Death();
+            if (trackerPU.isStar)
+            {
+                KillEnemy();
+            }
+            else
+            {
+                playerDeath = FindObjectOfType<PlayerDeath>();
+                playerDeath.DeathChecker();
+            }
         }
     }
 
@@ -103,6 +106,30 @@ public class EnemyMovement : MonoBehaviour
             boxCollider.enabled = false;
             
             moveSpeed = goomba;
+        }
+    }
+
+    void KillEnemy()
+    {
+        goombaCollider.enabled = false;
+
+        if (headHit)
+        {
+            animator.SetBool("Death", true); //Change animation to death animation
+
+            audioSource.clip = stomp; //Play stomp noise
+            audioSource.Play();
+
+            rBody.bodyType = RigidbodyType2D.Static;
+
+            Destroy(gameObject, 0.3f); //Wait __f seconds to destroy enemy
+        }
+        else
+        {
+            animator.SetBool("UpsideDown", true);
+            rBody.velocity *= -1;
+            audioSource.clip = die;
+            audioSource.Play();
         }
     }
 }
