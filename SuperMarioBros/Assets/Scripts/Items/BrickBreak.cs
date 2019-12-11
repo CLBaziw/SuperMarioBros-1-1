@@ -18,14 +18,19 @@ public class BrickBreak : MonoBehaviour
     private GameObject[] smallBrick = new GameObject[4];
     private float[] upForce = new float[] { -0.5f, -0.25f, 0.25f, 0.5f };
 
+    //Score Tracker
+    private ScoreCounter trackerScore;
+
     void Start()
     {
         rBody = GetComponent<Rigidbody2D>();
+        trackerScore = FindObjectOfType<ScoreCounter>();
 
         startingY = transform.position.y;
         currentY = startingY;
 
         rBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
+        trackerScore.ScoreChecker("brick");
     }
 
     private void FixedUpdate()

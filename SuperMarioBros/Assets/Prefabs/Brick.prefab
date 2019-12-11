@@ -113,7 +113,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1585442057251281186}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 790315a6c1c8d5e4681425c735d1a375, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -142,10 +142,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -173,7 +173,7 @@ MonoBehaviour:
     type: 3}
   starPrefab: {fileID: 1528297094281000602, guid: d7f531a9ce62aa341a7042a5964e4144,
     type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 1270928011}
   bottomCollider: {fileID: 1585442057251281182}
 --- !u!95 &1270928011
 Animator:

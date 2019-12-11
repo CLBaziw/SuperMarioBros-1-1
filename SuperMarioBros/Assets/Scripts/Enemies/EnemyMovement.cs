@@ -9,32 +9,33 @@ public class EnemyMovement : MonoBehaviour
     const float goomba = -1.82f;
     
     //Controllers
-    private Rigidbody2D rBody;
+    public Rigidbody2D rBody;
     public Transform minY;
+    public Animator animator;
+    public AudioSource audioStomp;
+    private ScoreCounter trackerScore;
+    private PlayerDeath playerDeath; 
 
     //Check for Head Hit
     public LayerMask whatIsPlayer;
     public Transform headCheck;
-    private bool headHit;
-    private Vector2 size = new Vector2(1f, 0.01f);
+    private Vector2 size = new Vector2(0.6f, 0.01f);
+    private bool headHit = false;
 
     private void Start()
     {
-        rBody = GetComponent<Rigidbody2D>();
-
-        Debug.Log(headCheck.localPosition);
-        Debug.Log(whatIsPlayer);
+        trackerScore = FindObjectOfType<ScoreCounter>();
+        playerDeath = FindObjectOfType<PlayerDeath>();
     }
 
     private void Update()
     {
-        headHit = Physics2D.OverlapCapsule(headCheck.localPosition, size, CapsuleDirection2D.Horizontal, whatIsPlayer);
+        headHit = Physics2D.OverlapBox(headCheck.position, size, 0f, whatIsPlayer); //Check if enemy has been hit on the head
     }
 
     private void FixedUpdate()
     {
-        rBody.velocity = new Vector2(moveSpeed, rBody.velocity.y);
-
+        //If enemy goes below floor, destroy it
         if (transform.position.y < minY.position.y)
         {
             Destroy(gameObject);
@@ -43,8 +44,16 @@ public class EnemyMovement : MonoBehaviour
         if (headHit)
         {
             //Goombra dies
-            Debug.Log("Killed Goomba");
-            Destroy(gameObject, 1f);
+            animator.SetBool("Death", true); //Change animation to death animation
+            
+            audioStomp.Play(); //Play stomp noise
+            Destroy(gameObject, 0.3f); //Wait __f seconds to destroy enemy
+
+            trackerScore.ScoreChecker("enemy");//Add score
+        }
+        else
+        {
+            rBody.velocity = new Vector2(moveSpeed, rBody.velocity.y); //Make enemy walk
         }
     }
 
@@ -56,10 +65,10 @@ public class EnemyMovement : MonoBehaviour
         {
             moveSpeed *= -1;
         }
-        else if (collisionTag == "Player" && !headHit)
+        else if (collisionTag == "Player" && !headHit) //If player hits enemy but not from above, kill player
         {
             //Player dies
-            Debug.Log("Killed by Goomba");
+            playerDeath.Death();
         }
     }
 

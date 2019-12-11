@@ -46,20 +46,20 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        horiz = Input.GetAxisRaw("Horizontal");
 
         if (isGrounded)
         {
             timeCounter = jumpTime;
         }
+
+        Jump();
     }
 
     private void FixedUpdate()
     {
-        horiz = Input.GetAxisRaw("Horizontal");
         vecTLBoundary = topLeftBoundary.transform.position;
         botBoundary = bottomBoundary.transform.position.y;
-
-        Jump();
 
         //Faster fall time
         if (rBody.velocity.y < -0.01)
@@ -71,8 +71,6 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            horizForce = moveSpeed; //Move faster on the ground
-
             animator.SetLayerWeight(JUMP, 0);
             if (horiz != 0)
             {
@@ -86,8 +84,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            horizForce = moveSpeed / 2; //Move slowly horizontally when airborne
-
             animator.SetLayerWeight(JUMP, 1);
         }
 
